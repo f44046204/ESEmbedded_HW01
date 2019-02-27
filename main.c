@@ -1,23 +1,32 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int plus(int a, int b) { return a + b; }
 int minus(int a, int b) { return a - b; }
 int multiply(int a, int b) { return a * b; }
 int divided(int a, int b) { return a / b; }
+
+int (*p[4])(int i,int j);
 int main()
 {
-	int a, c;
-	char b;
-	printf("key a Function \nEX: 1 + 1\n");
-	scanf("%i %c %i", &a, &b, &c);
-	//IF ELSE IF
-	if (b == '+')
-		printf("%d %c %d = %d\n", a, b, c, plus(a, c));
-	else if (b == '-')
-		printf("%d %c %d = %d\n", a, b, c, minus(a, c));
-	else if (b == '*')
-		printf("%d %c %d = %d\n", a, b, c, multiply(a, c));
-	else if (b == '/')
-		printf("%d %c %d = %d\n", a, b, c, divided(a, c));
+	int ans;
+	int n, m, op;
+	
+	p[0] = plus;
+	p[1] = minus;
+	p[2] = multiply;
+	p[3] = divided;
+
+	printf("Please enter two numbers: ");
+	scanf("%d %d", &n, &m);
+	
+	printf("0:Plus 1:Minus 2:Multiply 3:Divided \n");
+	do{
+	printf("Please enter your operation: ");
+	scanf("%d", &op);
+	}while(op<0 || op>3);
+	
+	ans = (*p[op])(n, m);
+	printf("%d",ans);
+	return 0;
+
 }
